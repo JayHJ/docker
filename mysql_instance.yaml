@@ -1,0 +1,21 @@
+version: '3.1'
+services:
+  mongo:
+    image: mysql:5.7
+    restart: always
+    container_name: "mysql57"
+    environment:
+      MYSQL_ROOT_USERNAME: root
+      MYSQL_ROOT_PASSWORD: 123456
+      lower_case_table_names: 1
+    ports:
+      - 3306:3306
+    volumes:
+      - /Users/jay/Documents/tools/mysql/data:/var/lib/mysql
+      - /Users/jay/Documents/tools/mysql/logs:/logs
+    #  - /Users/jay/Documents/tools/mysql/conf:/etc/mysql
+    # networks:
+    #   - backend
+    #   - frontend
+    # depends-on:
+    #   - db
