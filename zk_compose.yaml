@@ -1,0 +1,66 @@
+version: '3.1'
+
+services:
+  zk1:
+    image: zookeeper
+    restart: always
+    hostname: zk1
+    container_name: zk1
+    # environment:
+    ports:
+      - 2184:2181
+      - 2888:2888
+      - 3888:3888
+    volumes:
+      - /Users/jay/Documents/tools/zk-kafka/zk1/data:/data
+      - /Users/jay/Documents/tools/zk-kafka/zk1/datalog:/datalog
+    environment:
+      ZOO_MY_ID: 1
+      ZOO_SERVERS: server.1=0.0.0.0:2888:3888 server.2=zk2:2889:3889 server.3=zk3:2887:3887
+    networks:
+      - br17219
+        # ipv4_address: 172.19.0.11
+
+  zk2:
+    image: zookeeper
+    restart: always
+    hostname: zk2
+    container_name: zk2
+    # environment:
+    ports:
+      - 2185:2181
+      - 2889:2888
+      - 3889:3888
+    volumes:
+      - /Users/jay/Documents/tools/zk-kafka/zk2/data:/data
+      - /Users/jay/Documents/tools/zk-kafka/zk2/datalog:/datalog
+    environment:
+      ZOO_MY_ID: 1
+      ZOO_SERVERS: server.1=zk1:2888:3888 server.2=0.0.0.0:2889:3889 server.3=zk3:2887:3887
+    networks:
+      - br17219
+        # ipv4_address: 172.19.0.12
+
+  zk3:
+    image: zookeeper
+    restart: always
+    hostname: zk3
+    container_name: zk3
+    # environment:
+    ports:
+      - 2186:2181
+      - 2887:2888
+      - 3887:3888
+    volumes:
+      - /Users/jay/Documents/tools/zk-kafka/zk3/data:/data
+      - /Users/jay/Documents/tools/zk-kafka/zk3/datalog:/datalog
+    environment:
+      ZOO_MY_ID: 1
+      ZOO_SERVERS: server.1=zk1:2888:3888 server.2=zk2:2889:3889 server.3=0.0.0.0:2887:3887
+    networks:
+      - br17219
+        # ipv4_address: 172.19.0.13
+
+
+networks:
+  br17219
