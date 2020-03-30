@@ -1,0 +1,16 @@
+version: '3.1'
+services:
+  mongo:
+    image: redis
+    restart: always
+    container_name: "redis"
+    # environment:
+    ports:
+      - 6379:6379
+    volumes:
+      - /Users/jay/Documents/tools/redis/data:/data
+    # networks:
+    #   - backend
+    #   - frontend
+    # depends-on:
+    #   - db
